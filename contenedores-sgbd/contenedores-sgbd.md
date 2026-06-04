@@ -65,3 +65,14 @@ docker run -d --name server-MariaDBG3 \
 ```bash
 docker run -d --name server-postgresg3 -p 5432:5432 -e POSTGRES_PASSWORD=123456 -v vol-postgresg3:/var/lib/postgresql/data/pgdata 78481659c47e
 ```
+
+<br>
+
+### Contenedor de SQLServer con volumen
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=P@ssw0rd" \
+   -u 0 \
+   -p 1451:1433 --name SQLServerG3 \
+   -d -v vol-sqlserverg3:/var/opt/mssql/data \
+   e07b9699a2b7
+```
