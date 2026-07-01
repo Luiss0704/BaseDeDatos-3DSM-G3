@@ -129,3 +129,70 @@ Una empresa se dedica a la venta de productos al por mayor y necesita registrar 
 
 ### Solución no. 2 del ejercicio
 ![Solución 2 - Ejercicio 4](../img/E-R/Ejercicio%204.2.png)
+
+<br>
+<br>
+
+## Ejercicio.
+
+Una empresa administra departamentos, empleados, proyectos y dependientes.
+
+> De cada departamento se almacena:
+
+* Nombre del departamento
+* Número del departamento
+* Empleado que lo gestiona
+* Fecha de inicio de la gestión
+* Ubicación(es)
+
+> De cada proyecto se almacena:
+
+* Nombre del proyecto
+* Número del proyecto
+* Ubicación
+
+> De cada empleado se almacena:
+
+* Nombre
+* Número de Seguridad Social (NSS)
+* Dirección
+* Salario
+* Sexo
+* Fecha de nacimiento
+
+> De cada dependiente se almacena:
+
+* Nombre
+* Sexo
+* Fecha de nacimiento
+* Relación de parentesco
+
+> Reglas del negocio
+
+1. Un departamento puede tener varias ubicaciones.
+2. Un departamento controla varios proyectos.
+3. Cada proyecto pertenece a un solo departamento.
+4. Un empleado está asignado a un solo departamento.
+5. Un departamento puede tener varios empleados.
+6. Un empleado puede trabajar en varios proyectos.
+7. Un proyecto puede tener varios empleados trabajando en él.
+8. De cada participación de un empleado en un proyecto se debe almacenar:
+
+   * Horas semanales trabajadas.
+9. Cada departamento es gestionado por un empleado.
+10. De la gestión de un departamento se debe almacenar:
+
+    * Fecha de inicio de la gestión.
+11. Un empleado tiene un supervisor directo.
+12. El supervisor de un empleado también es un empleado.
+13. Un empleado puede tener varios dependientes.
+14. Cada dependiente pertenece a un solo empleado.
+
+> **NOTA:** Las relaciones se deben llamar:
+
+* **GESTIONA** (Empleado ↔ Departamento)
+* **CONTROLA** (Departamento ↔ Proyecto)
+* **TRABAJA_EN** (Empleado ↔ Proyecto)
+* **PERTENECE** (Empleado ↔ Departamento)
+* **SUPERVISA** (Empleado ↔ Empleado)
+* **TIENE** (Empleado ↔ Dependiente)
