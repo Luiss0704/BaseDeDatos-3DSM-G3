@@ -164,3 +164,53 @@ GO
 
 
 -- Restricción UNIQUE
+
+CREATE TABLE categoria (
+	categoria_id INT NOT NULL IDENTITY(1,1),
+	nombre VARCHAR(20) NOT NULL UNIQUE,
+	activo BIT NOT NULL,
+	CONSTRAINT pk_categoria PRIMARY KEY (categoria_id)
+);
+GO
+
+INSERT INTO categoria (nombre,activo) VALUES (
+	UPPER('carnes frías'),
+	1
+);
+GO
+
+DROP TABLE categoria;
+GO
+
+
+
+
+CREATE TABLE categoria (
+	categoria_id INT NOT NULL IDENTITY(1,1),
+	nombre VARCHAR(20) NOT NULL,
+	activo BIT NOT NULL DEFAULT 1,
+	CONSTRAINT pk_categoria PRIMARY KEY (categoria_id),
+	CONSTRAINT uq_categoria_nombre UNIQUE (nombre)
+);
+GO
+
+
+INSERT INTO categoria VALUES (
+	'Carnes frías',
+	DEFAULT
+);
+GO
+
+INSERT INTO categoria(nombre) VALUES (
+	'Lacteos'
+);
+GO
+
+
+SELECT * FROM categoria;
+GO
+
+-- TODO: CREAR LAS TABLAS DE LAS OTRAS DOS FORMAS
+
+
+-- Resricción CHECK
