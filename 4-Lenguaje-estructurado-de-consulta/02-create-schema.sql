@@ -98,22 +98,14 @@ GO
 TABLA EMPLEADOS
 ==========================================================*/
 
-CREATE TABLE empleados
-(
+CREATE TABLE empleados(
 id_empleado INT IDENTITY(1,1) NOT NULL,
-
 nombre VARCHAR(60) NOT NULL,
-
 apellido_paterno VARCHAR(50) NOT NULL,
-
 apellido_materno VARCHAR(50),
-
 fecha_ingreso DATE NOT NULL,
-
 salario DECIMAL(10,2) NOT NULL,
-
 id_departamento INT NOT NULL,
-
 id_jefe INT NULL,
 
 
@@ -135,10 +127,8 @@ GO
 TABLA CATEGORIAS
 ==========================================================*/
 
-CREATE TABLE categorias
-(
-id_categoria INT IDENTITY(1,1) NOT NULL,
-
+CREATE TABLE categorias (
+id_categoria INT IDENTITY(1,1) NOT NULL
 nombre VARCHAR(100) NOT NULL,
 
 CONSTRAINT pk_categorias
