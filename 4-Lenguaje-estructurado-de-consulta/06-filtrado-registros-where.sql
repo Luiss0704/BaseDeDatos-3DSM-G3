@@ -110,3 +110,236 @@ SELECT
 FROM ventas AS v
 WHERE v.fecha = '2025-12-24';
 GO
+
+
+
+USE comercial_db;
+
+
+--- Comparaciones con expresiones calculadas
+--- WHERE  tmabien puede evaluar un calculo 
+
+--- Mostarar productos cuyo valor del inventario sea mayorn a $50,000
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE (p.precio * p.existencia) > 50000.4
+ORDER BY valor_inventario DESC;
+GO
+
+
+--- Operador Logico AND
+--- Mostarar Productos con Precio entre $200 y $300 que ademas tengan menos de 50 unidades
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE p.precio >= 200
+  AND p.precio <= 300
+  AND p.existencia <50
+GO
+
+
+-- Clausula BETWEN (EQUIVALENTE A UN RANGO)
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE p.precio BETWEEN 200 AND 300
+      AND p.existencia <50
+GO
+
+-- Mostar los empleados del departamento 1 cuyo salario sea superior a $25000
+
+
+SELECT
+	e.id_empleado,
+	e.nombre,
+	e.salario,
+	e.id_departamento
+FROM empleados AS e
+WHERE e.salario > 25000
+   AND e.id_departamento = 1;
+GO
+
+-- Mostar los productos cuya existencia inferior a 10 o superior a 190 
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE p.existencia < 10 OR p.existencia > 190
+GO
+
+-- Mostar los productos que no tengan precio mayor a 400
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE NOT (p.precio > 400);< 
+GO
+
+-- Selecionar los empleados que pertenezcan al departamento 1,
+-- al departamento 2 y con salario mayor a 25000
+
+SELECT
+	e.id_empleado,
+	e.nombre,
+	e.salario,
+	e.id_departamento
+FROM empleados AS e
+WHERE e.salario > 25000
+   AND (e.id_departamento = 1
+   OR e.id_departamento = 2);
+GO
+
+
+-- OPERADOR BETWEEN 
+-- permite comprobar si un valor se encuntra dentro de un rango 
+-- inclusivo
+
+
+/*================================================================================
+	SINTAXIS
+
+	WHERE columna BETWEEN limite_inferior AND limite_superior
+
+=================================================================================*/
+
+--Mostara los empleados con salario entre $15,000.0 y 20,000.0 incluyendo ambos limites
+
+SELECT
+	e.id_empleado,
+	e.nombre,
+	e.salario
+FROM empleados AS e
+WHERE e.salario BETWEEN 15000 AND 20000
+ORDER BY 3 DESC;
+GO
+
+
+
+SELECT
+	e.id_empleado,
+	e.nombre,
+	e.salario
+FROM empleados AS e
+WHERE e.salario >= 15000 AND e.salario <= 20000
+ORDER BY 3 DESC;
+
+
+--Selecionar los productos donde el precio este entre 100 y 200 
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE p.precio BETWEEN 100 AND 200
+GO
+
+
+
+
+--Selecionar las ventas realiazadas del 1 de Enero de 2025 al 10 de Enero de 2025
+
+
+SELECT 
+	v.id_venta AS numero_venta,
+	v.id_cliente AS cliente,
+	v.id_empleado AS vendedor,
+	v.fecha AS fecha_venta,
+	UPPER(FORMAT (v.fecha, 'MMMM', 'es-ES')) AS [mes_venta],
+	UPPER(FORMAT (v.fecha, 'dddd', 'es-ES')) AS [dia_venta],
+	DATEPART(YEAR, v.fecha) AS [año_venta]
+FROM ventas AS v
+WHERE v.fecha BETWEEN '2025-01-01' AND '2025-01-10' 
+ORDER BY fecha_venta ;
+GO
+
+
+-- NOT BEWTEEN 
+-- Recupera valores que se encuntrannfuera de un rango
+
+
+-- SELECIONAR LOS PRODUCTOS QUE NO SE ENCUYENTREN EN EL RANGO DE PRECIOS
+-- DE 100 Y 400
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.existencia,
+	(p.precio * p.existencia) AS valor_inventario
+FROM productos AS p
+WHERE p.precio NOT BETWEEN 100 AND 400;
+GO
+
+
+-- OPERADOR IN 
+-- Permite comprobar una columna con una lista de valores 
+
+/*================================================================================
+	SINTAXIS
+
+	WHERE columna IN (valor_1, valor_2, valor_n)
+
+	Es equivalente a varias condiciones conectadas con OR
+
+=================================================================================*/
+
+-- Mostar los productos pertenecientes a las categorias 1, 7, 12
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.id_categoria
+FROM productos AS p
+WHERE p.id_categoria IN (1,7,12)
+ORDER BY p.id_categoria;
+GO
+
+SELECT 
+	p.codigo,
+	p.nombre,
+	p.precio,
+	p.id_categoria
+FROM productos AS p
+WHERE p.id_categoria =1
+	OR p.id_categoria =7
+	OR p.id_categoria =12
+ORDER BY p.id_categoria;
+GO
+
+
+--SELECIONAR LOS DEPARTAMENTOS  DE VENTAS , TI Y DIRECION
+
+SELECT 
+	d.id_departamento,
+	d.nombre
+FROM departamentos AS d
+WHERE d.nombre IN ('Ventas','TI','Dirección')
+ORDER BY 1;
+GO
