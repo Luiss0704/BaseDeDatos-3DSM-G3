@@ -334,7 +334,7 @@ ORDER BY p.id_categoria;
 GO
 
 
---SELECIONAR LOS DEPARTAMENTOS  DE VENTAS , TI Y DIRECION
+--SELECIONAR LOS DEPARTAMENTOS  DE VENTAS , TI Y DIRECCIÓN
 
 SELECT 
 	d.id_departamento,
@@ -343,3 +343,95 @@ FROM departamentos AS d
 WHERE d.nombre IN ('Ventas','TI','Dirección')
 ORDER BY 1;
 GO
+
+
+-- NOT IN
+-- Excluye los valores incluidos en la lista
+
+-- Mostrar los datos de los empleados que no pertenezcan ni al departamento 1 ni al 2
+SELECT
+	e.id_empleado,
+	e.nombre,
+	e.id_departamento
+FROM empleados AS e
+WHERE e.id_departamento NOT IN (1,2);
+GO
+
+
+/*
+===========================================================================
+		LIKE
+		Permite buscar patrones dentro de valores de texto
+		SINTAXIS:
+		WHERE columna LIKE 'patron'
+		Los patrones pueden contener comodines, los principales son:
+
+		Comodin			Significado
+		  %				Cero, uno o varios caracteres
+		  _				Exactamente un caracter
+		[abc]			Un caracter incluido en la lista
+		[a-f]			Un caracter incluido en el rango
+		[^abc]			Un caracter no incluido en la lista
+===========================================================================
+*/
+
+
+
+-- Comodin %
+-- Representa cualquier cantidad de caracteres, incluyendo 0 caracteres
+
+-- Comienza con
+-- WHERE nombre LIKE 'Cliente1%'
+-- Valores que comienzan con Cliente1
+
+-- Termina con
+-- WHERE correo LIKE '%mail.com'
+-- Valores que terminan con mail.com
+
+-- Contiene
+-- WHERE nombre LIKE '%a%'
+-- Valores que contienen 'a' donde sea
+
+
+
+-- Mostrar los productos donde el código comience con P0001
+SELECT
+	p.codigo,
+	p.nombre,
+	p.precio
+FROM productos AS p
+WHERE p.codigo LIKE 'P001%';
+
+
+
+
+-- Mostrar los datos de los clientes en donde su correo termine con 10@mail.com
+SELECT
+	c.id_cliente,
+	c.nombre,
+	c.correo
+FROM clientes AS c
+WHERE c.correo LIKE '%10@mail.com';
+
+
+-- Mostrar los datos de los productos donde el nombre contenga el caracter 1
+SELECT
+	p.nombre,
+	p.precio
+FROM productos AS p
+WHERE p.nombre LIKE '%1%';
+
+
+
+
+-- Comodin de 1 caracter
+-- El guión bajo (_) representa exactamente un caracter
+
+
+-- Seleccionar los datos de los productos donde el código comience con P000 y despues exactamente con un caracter adicional
+SELECT
+	p.codigo,
+	p.nombre,
+	p.precio
+FROM productos AS p
+WHERE p.codigo LIKE 'P000_';
